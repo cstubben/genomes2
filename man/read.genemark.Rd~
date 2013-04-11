@@ -1,0 +1,84 @@
+\name{read.genemark}
+\alias{read.genemark}
+%- Also NEED an '\alias' for EACH other topic documented here.
+\title{
+%%  ~~function to do ... ~~
+}
+\description{
+%%  ~~ A concise (1-5 lines) description of what the function does. ~~
+}
+\usage{
+read.genemark(file)
+}
+%- maybe also 'usage' for other objects documented here.
+\arguments{
+  \item{file}{
+%%     ~~Describe \code{file} here~~
+}
+}
+\details{
+%%  ~~ If necessary, more details than the description above ~~
+}
+\value{
+%%  ~Describe the value returned
+%%  If it is a LIST, use
+%%  \item{comp1 }{Description of 'comp1'}
+%%  \item{comp2 }{Description of 'comp2'}
+%% ...
+}
+\references{
+%% ~put references to the literature/web site here ~
+}
+\author{
+%%  ~~who you are~~
+}
+\note{
+%%  ~~further notes~~
+}
+
+%% ~Make other sections like Warning with \section{Warning }{....} ~
+
+\seealso{
+%% ~~objects to See Also as \code{\link{help}}, ~~~
+}
+\examples{
+##---- Should be DIRECTLY executable !! ----
+##-- ==>  Define data, use random,
+##--	or do  help(data=index)  for the standard data sets.
+
+## The function is currently defined as
+function (file) 
+{
+    x <- readLines(file)
+    zz <- textConnection(x[-(1:9)])
+    x2 <- read.table(zz, stringsAsFactors = FALSE)
+    close(zz)
+    colnames(x2) <- c("id", "strand", "start", "end", "length", 
+        "class")
+    if (class(x2$start) != "integer") {
+        zz <- grep("[^0-9]", x2$start, value = TRUE)
+        print(paste("Removed non-numeric characters in start column:", 
+            paste(zz, collapse = ",")))
+        x2$start <- as.integer(gsub(".*?([0-9]+).*", "\\1", x2$start))
+    }
+    if (class(x2$end) != "integer") {
+        zz <- grep("[^0-9]", x2$end, value = TRUE)
+        print(paste("Removed non-numeric characters in end column:", 
+            paste(zz, collapse = ",")))
+        x2$end <- as.integer(gsub(".*?([0-9]+).*", "\\1", x2$end))
+    }
+    acc <- strsplit2(strsplit2(x[2], ": ", n = 2), "\\.")
+    z <- ncbiNucleotide(acc)
+    x3 <- GRanges(seqnames = acc, ranges = IRanges(x2$start, 
+        x2$end), strand = x2$strand, x2[, c(1, 6)])
+    if (max(end(x3)) > z$size) 
+        isCircular(x3) <- TRUE
+    seqlengths(x3) <- z$size
+    metadata(x3) <- list(source = file, defline = z$name, date = Sys.Date())
+    x3
+  }
+}
+% Add one or more standard keywords, see file 'KEYWORDS' in the
+% R documentation directory.
+\keyword{ ~kwd1 }
+\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line

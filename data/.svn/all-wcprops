@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/bioconductor/!svn/ver/69503/trunk/madman/Rpacks/genomes/data
+END
+proks.rda
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/bioconductor/!svn/ver/74540/trunk/madman/Rpacks/genomes/data/proks.rda
+END
+euks.rda
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/bioconductor/!svn/ver/74540/trunk/madman/Rpacks/genomes/data/euks.rda
+END
+virus.rda
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/bioconductor/!svn/ver/74540/trunk/madman/Rpacks/genomes/data/virus.rda
+END

@@ -1,0 +1,28 @@
+\name{enaStats}
+\alias{enaStats}
+\title{ ENA taxonomy statistics }
+\description{ The number of linked records and total size in the portal view on the European Nucleotide Archive (ENA) taxonomy pages
+}
+\usage{
+enaStats(tax, h = TRUE, round = 0)
+}
+\arguments{
+  \item{tax}{ a taxonomy ID or name }
+  \item{h}{ return bases in human-readable format }
+  \item{round}{ number of digits to round bases}
+}
+% \details{ }
+\value{ a data.frame listing direct and subtree records in various data classes }
+\references{ see \url{http://www.ebi.ac.uk/ena/about/browser#taxonomy_portal_options} for details }
+\author{ Chris Stubben }
+\note{ The ENA urls require a taxonomy ID and therefore searching by a taxonomy name will be slower since a separate query to the NCBI taxonomy database is needed. }
+
+\seealso{ \code{\link{taxonomy}} }
+\examples{
+# COMPARE to http://www.ebi.ac.uk/ena/data/view/display=html&Taxon:2
+enaStats("Bacteria")
+enaStats(2, h=FALSE)
+# common names 
+enaStats("human")
+}
+\keyword{ methods }

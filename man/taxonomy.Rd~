@@ -1,0 +1,39 @@
+\name{taxonomy}
+\alias{taxonomy}
+\title{  NCBI taxonomy database  }
+\description{ Search the Entrez taxonomy database at NCBI 
+ and return summaries using Esummary or Efetch
+}
+\usage{
+taxonomy(term, eutil = "Esummary", full = FALSE)
+}
+\arguments{
+  \item{term}{ either a valid Entrez search term or a vector of taxonomy IDs (passed to Epost) or names (joined using OR)  }
+  \item{eutil}{ check search results using Esummary (default) or Efetch}
+  \item{full}{ return all 14 Esummary fields }
+}
+\details{ The function uses either Epost (for a vector of taxonomy IDs)
+or Esearch to query the taxonomy database and then passes the results to
+either Esummary or Efetch. Esummary returns the id, name, rank, division
+and number of records in various Entrez databses.  Efetch returns the id, name,
+rank, lineage and date.
+ }
+\value{ a data.frame }
+\references{ NCBI taxonomy database \url{http://www.ncbi.nlm.nih.gov/sites/entrez?db=taxonomy}  }
+\author{ Chris Stubben }
+% \note{  }
+
+\seealso{ \code{\link{einfo}} for a list of fields in the taxonomy database }
+\examples{
+taxonomy("cellular organisms[Next Level]")  
+# new Hantavirus species in 2011
+taxonomy("Hantavirus[subtree] AND 2011[date] AND species[rank]") 
+# difference between Esummary and Efetch results
+taxonomy (1000587)
+taxonomy (1000587, "Efetch")
+
+
+
+
+}
+\keyword{ methods }

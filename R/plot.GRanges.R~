@@ -1,0 +1,65 @@
+plot.GRanges<-function(x, start=0, end=10000, seq=1, arrow=250, width=.45,  add=FALSE,  yaxt='n', row=0, rowx=1,
+   colors=list(CDS="green", ncRNA="red", rRNA="red", tRNA="red", pseudo="gray80", gene="blue", region="yellow", repeat_region="yellow"), 
+   ylim=NA, xlab="Coordinates", ylab="", label=6, labelcex=1, ...)
+{
+ #OTHER colors?  terminator="black"
+
+   if(start == end) start <- start+1
+   if(end < start){ start <- start - end/2 ; end <- start  + end }
+ 
+   ## arrow y-coords
+   y <- c(-width, width, width, 0, -width, -width) 
+
+   start1 <- start; end1<-end   # for subsets
+ 
+   # multiple seqnames?
+   if( length( seqlevels(x))>1 ) { x <- subset(x, as.vector(seqnames(x))==seqlevels(x)[seq]) }
+
+   x <- subset(x , (start(x)  >= start1 & start(x) <= end1) | (end(x) >= start1 & end(x) <= end1) ) 
+   bins <- disjointBins(IRanges(start(x), end(x) + 1)) 
+   bins <- (bins - 1) * rowx  + row
+   # no bins
+
+   if(is.na(ylim[1])){ 
+        ylim=c(-2,2)  # no features
+        if(length(bins)>0) ylim=c(-1, max(bins)+1 )
+   }
+   if(!add){
+      plot(c(start, end), c(row,row), type='l', ylim=ylim, xlab=xlab, ylab=ylab, bty='n', xaxs='i', yaxt=yaxt, ...)
+   }
+   x <-as.data.frame(x)
+   n <- nrow(x)
+   if(n > 0)
+   {
+      for(i in 1:n){
+         start <- x$start[i]
+         end   <- x$end[i]  
+         type <-  x$feature[i]  # may be NULL
+         y1 <- y + bins[i]     # set track from disjointBins
+
+         n1 <- match(type, names(colors))
+         if(is.na(n1) ) n1 <- 1
+         clr <- colors[[n1]]
+
+         labX <- start + (end - start)/2
+
+         if(x$strand[i] == "+"){         
+            arrX <-  end - arrow 
+            ## if gene length < arrow length, set arrow =start
+            if(arrX < start){arrX <- start}
+            x1 <- c(start, start, arrX, end, arrX, start)
+         }else{ 
+            
+            arrX <-start + arrow 
+            ## if gene < 250 
+            if(arrX > end){arrX <- end}
+            x1 <- c(end, end, arrX, start, arrX, end)
+         }  
+         polygon(x1, y1,  col=clr, border=NA)
+         if(!is.na(label)){
+            lab <- as.character( x[ ,label][i])   # check if label is a valid column???
+            text(labX, bins[i] , lab, cex=labelcex)
+         }
+      }
+   }
+}
