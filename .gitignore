@@ -1,6 +1,8 @@
 # History files
 .Rhistory
 
+.svn
+
 # Example code in package build process
 *-Ex.R
 
