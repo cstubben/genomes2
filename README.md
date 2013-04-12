@@ -124,7 +124,7 @@ Similar to esearch, the `elink` command also returns either the History Server o
 	elink("15718680,157427902", dbfrom="protein", db="gene", cmd="neighbor")
 	[1] 522311   3702
 
-These commands can also be nested to return complicated queries in a single line (esearch-> elink -> esummary).  In this case, viral genomes linked to a Reference sequence in Entrez genome are displayed.
+These commands can also be nested to return complicated queries in a single line (esearch-> elink -> esummary).  In this case, viral genomes linked to a Reference sequence in Entrez genome are displayed.  Many links are also available as filters, so this search in nuccore would also work `Nipah virus[ORGN] AND nuccore genome samespecies[Filter]`
 
 	esummary( elink( esearch("Nipah virus", "genome"), db="nuccore", linkname="genome_nuccore_samespecies"))[, c(2,3,6,10)]
 	[1] "1 result found"
