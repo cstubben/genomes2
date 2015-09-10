@@ -1,6 +1,6 @@
 esearch <-function(term, db="pubmed", usehistory="y", parse=TRUE, verbose=TRUE, showURL=FALSE, ...)
 {
-    # or use options("verbose")
+    # TO DO drop verbose and use message() instead of print()  and then suppressMessages(esearch)
    if(is.vector(term)) term <- paste(term, collapse=",")   # collapse=" OR " ?
    term  <- gsub(" ", "+", term)  # replace spaces
    email <- Sys.getenv("email")  # will be empty string if not set
