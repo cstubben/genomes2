@@ -1,6 +1,8 @@
-# genomes
+# genomes2
 
-`genomes` is an `R` package on Bioconductor that collects genome sequencing project data from NCBI using E-utility scripts and the ENA using REST queries.  A short description of the five basic E-utility scripts (einfo, esearch, esummary, efetch and elink) is provided below and many other functions and datasets are included within the package.  
+`genomes2` is a copy of the  `genomes` version 2 package from Bioconductor that read metadata, gff, sequences and other files in the old FTP genomes directories (on  Dec 2, 2015, these were moved to ftp://ftp.ncbi.nlm.nih.gov/genomes/archive/old_refseq).   The package also collected genome sequencing project data from NCBI using E-utility scripts (also removed from `genomes` version 3 due to the same functionality in the `reutils` or `rentrez` packages).  
+
+A short description of the five basic E-utility scripts (einfo, esearch, esummary, efetch and elink) is provided below.  
 
 The `einfo` function lists the 51 Entrez databases (accessed April 12, 2013).
 
