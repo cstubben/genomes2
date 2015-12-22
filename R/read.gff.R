@@ -14,9 +14,9 @@ read.gff <- function(file,  locus.tags=TRUE, nrows = -1  ){
      print("WARNING: changing '.' to '+' in strand column")
    }
 
-   # SAVE OR remove version number?   - strsplit2 in limma
+   # SAVE OR remove version number?   - note strsplit2 in limma
    seqid  <- unique(x$seqid)
-   if( all(grepl("\\.[0-9]$", seqid )) )  x$seqid<- genomes::strsplit2(x$seqid, ".", fixed=TRUE)
+   if( all(grepl("\\.[0-9]$", seqid )) )  x$seqid<- strsplit2(x$seqid, ".", fixed=TRUE)
 
 
    ## extra ID tag added for plotting 

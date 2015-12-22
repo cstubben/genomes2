@@ -3,7 +3,7 @@
 \title{  Read files from the NCBI genomes FTP  }
 \description{ Read files from the NCBI genomes FTP  }
 \usage{
-read.ncbi.ftp(org, filePattern = "ptt$|rnt$", ftp = "genomes/ASSEMBLY_BACTERIA", ...)
+read.ncbi.ftp(org, filePattern = "ptt$|rnt$", ftp = "genomes/archive/old_refseq/Bacteria", ...)
 }
 \arguments{
   \item{org}{ organism directory (new FTP requires species and refseq assembly) }
@@ -18,7 +18,7 @@ coordinate files (gff, ptt, rnt, GeneMarkHMM, Glimmer, Prodigal)  to GRanges }
 \value{ a Biostring or GRanges object }
 %\references{ }
 \author{ Chris Stubben }
-\note{ The genomes FTP site was updated on Aug 2014 and the default ftp is now the new location.  Please use ftp = "genomes/Bacteria" for the old genomes FTP. This does not read asn, gbk, val, GeneMark 2.5 and rpt files.   }
+\note{ The genomes FTP site was updated on Dec 2, 2015 \url{ftp://ftp.ncbi.nlm.nih.gov/genomes/README.txt} and the default directory is now genomes/archive/old_refseq/Bacteria   }
 
 \seealso{ \code{\link{read.gff}}, \code{\link{read.ptt}}, \code{\link{read.genemark}}, \code{\link{read.glimmer}}, \code{\link{read.prodigal}} }
 \examples{
@@ -26,19 +26,14 @@ coordinate files (gff, ptt, rnt, GeneMarkHMM, Glimmer, Prodigal)  to GRanges }
 
 \dontrun{
 
-#NEW FTP uses species and RefSeq assembly
 
-org <- "Burkholderia_pseudomallei/GCF_000011545"
+org<-"Burkholderia_pseudomallei_K96243_uid57733"
 read.ncbi.ftp(org)         # Protein and rna tables
 read.ncbi.ftp(org, "gff")  # GFF
 read.ncbi.ftp(org, "fna")  # Genome sequences
 
-# OLD genomes FTP uses strain and reseq project ID
-# ALSO includes prodigal, genemark and glimmer predictions (not on new site)
-
-org <- "Burkholderia_pseudomallei_K96243_uid57733"
-read.ncbi.ftp(org, "Prod", ftp = "genomes/Bacteria") # Prodigal annotations
-read.ncbi.ftp(org, "Glim", ftp = "genomes/Bacteria") # Glimmer
+read.ncbi.ftp(org, "Prod") # Prodigal annotations
+read.ncbi.ftp(org, "Glim") # Glimmer
 
 }
 

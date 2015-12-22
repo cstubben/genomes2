@@ -1,14 +1,15 @@
-## sep 4 2014 - using new genomes/ASSEMBLY_BACTERIA as default
-# new FTP dir does not include  GeneMarkHMM-2, Glimmer3, or Prodigal-2 (use old genomes/Bacteria)
+## Dec 2, 2015 changes ftp://ftp.ncbi.nlm.nih.gov/genomes/README.txt
+## files moved to ftp://ftp.ncbi.nlm.nih.gov/genomes/archive/old_refseq/
 
-read.ncbi.ftp <- function(org,  filePattern="ptt$|rnt$", ftp ="genomes/ASSEMBLY_BACTERIA", ...){
+
+read.ncbi.ftp <- function(org,  filePattern="ptt$|rnt$", ftp ="genomes/archive/old_refseq/Bacteria", ...){
    ftpdir <- paste("ftp://ftp.ncbi.nih.gov", ftp, org, sep="/")
    # list files in directory
    x <- ftpList( ftpdir )
    files <- grep(filePattern, x$name, value=TRUE)
    if(length(files) == 0){stop("No files matching ", filePattern, " found")}
    # get file endings
-   fileTypes <- genomes::strsplit2(files, ".", 2, fixed=TRUE)
+   fileTypes <- strsplit2(files, ".", 2, fixed=TRUE)
     # CANNOT read these files
    n0 <- which( fileTypes %in% c("asn", "gbk", "val", "GeneMark-2", "rpt"))
    if(length(n0) > 0 ){
